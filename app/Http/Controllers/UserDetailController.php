@@ -46,7 +46,7 @@ class UserDetailController extends Controller
                 'required',
                 'email',
                 'max:40',
-                Rule::unique('users','email')->ignore($pengguna)
+                Rule::unique('users','email')->ignore($pengguna->id)
             ],
             'nomor_telepon' => 'nullable|min:11',
             'nomor_karyawan' => 'nullable|min:16|max:20',
@@ -57,12 +57,7 @@ class UserDetailController extends Controller
         $pengguna->name = $request->name;
         $pengguna->last_name = $request->last_name;
 
-        //Validasi email tidak boleh sama dengan email yang saat ini digunakan 
         $pengguna->email = $request->email;
-        if($pengguna->email == $request->email)
-        {
-            return redirect()->back()->with('error','Email sedang digunakan, silahkan gunakan email lain.');
-        }
 
         //Validasi role user admin yang saat ini login tidak dapat mengubah diri sendiri menjadi author
         $pengguna->role = $request->role;
@@ -74,7 +69,7 @@ class UserDetailController extends Controller
         //Simpan perubahan pada model User
         $pengguna->save();
 
-        
+
         $userDetail = UserDetail::where('user_id', $id)->first();
         if ($userDetail) {
             if ($request->hasFile('foto_profil')) {
@@ -91,11 +86,10 @@ class UserDetailController extends Controller
             $userDetail->nomor_karyawan = $request->nomor_karyawan;
             $userDetail->jenis_kelamin = $request->jenis_kelamin;
             $userDetail->save();
-            
+            return redirect()->back()->with('success','informasi pengguna berhasil di perbaharui');
         } else {
             return redirect()->route('users.home')->with('error','pengguna tidak ditemukan');
         }
-        return redirect()->back()->with('success','informasi pengguna berhasil di perbaharui');
     }
 
 }
