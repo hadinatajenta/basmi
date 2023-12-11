@@ -1,0 +1,33 @@
+/* Mengatur style untuk container label search bar */
+.dataTables_filter label {
+    display: block; /* Membuat label menjadi block agar input bisa lebar penuh */
+    margin-left: 0; /* Menghilangkan margin kiri default */
+}
+
+/* Mengatur style untuk input search bar */
+.dataTables_filter input {
+    width: 100%; /* Membuat lebar input menjadi 100% dari container */
+    padding: 0.5rem; /* Menambahkan padding untuk tinggi */
+    margin: 0.5rem 0; /* Memberi margin atas dan bawah */
+    border: 1px solid #ced4da; /* Warna border yang serasi dengan desain */
+    border-radius: 0.25rem; /* Melengkungkan sudut */
+    box-shadow: none; /* Menghapus shadow */
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; /* Animasi transisi */
+}
+
+/* Mengatur style saat input fokus */
+.dataTables_filter input:focus {
+    border-color: #86b7fe; /* Warna border saat fokus */
+    outline: 0; /* Menghilangkan outline */
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25); /* Menambahkan box shadow yang lembut */
+}
+
+/* Mengatur style untuk button search (jika ada) */
+.dataTables_filter button {
+    padding: 0.375rem 0.75rem; /* Padding yang serasi dengan input */
+    margin-left: 0.5rem; /* Margin kiri untuk jarak antara input dan button */
+    border: 1px solid #ced4da; /* Warna border yang serasi dengan input */
+    border-radius: 0.25rem; /* Melengkungkan sudut */
+    background-color: #0d6efd; /* Warna background yang serasi dengan tombol "Postingan" */
+    color: white; /* Warna teks */
+}
