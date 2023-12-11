@@ -41,10 +41,7 @@
                         <input class="form-control" type="file" id="formFile" name="gambar_utama">
                     </div>
                     <div class="mb-3">
-                        <x-forms.select :options="$kategoriOptions" id="kategori" label='Kategori' name="kategori_id" />
-                    </div>
-                    <div class="mb-3">
-                        <x-forms.select :options="$jenisBeritaOptions" id="jenisBerita" label='Jenis Berita' name="jenis_berita_id" />
+                        <x-forms.select :options="$kategoriOptions" id="kategori" label='Kategori' name="kategori_id" selectedvalue="{{$berita->kategori_id}}"  />
                     </div>
                     <div class="mb-3">
                         <button type="submit" name="action" class="btn btn-primary btn-sm" value="terbit">Terbit</button>

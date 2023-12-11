@@ -50,7 +50,7 @@
         <div class="col-12 p-2">
             <div class="container table-responsive bg-white rounded-2 shadow-sm" >
                 <div class="d-flex align-items-center justify-content-between p-2">
-                    <p class="m-0 h4" style="color:#636464">Daftar karyawan</p>
+                    <p class="m-0 h5 fw-semibold">Daftar karyawan</p>
                     <button class="btn btn-primary btn-sm" type="button" id="karyawan" data-bs-toggle="modal" data-bs-target="#tambah-karyawan">+ Karyawan</button>
                 </div>
                 
@@ -65,16 +65,13 @@
                             </div>
                             <div class="modal-body">
                                 <div class="mb-3">
-                                    <label for="name" id="name" class="form-label" >Nama karyawan <span style="color: red">*</span></label>
-                                    <input type="text" name="name" id="name" aria-describedby="name" class="form-control" required>
+                                    <x-forms.input label="Nama karyawan" id="name" name="name" type="text" placeholder="Masukkan nama karyawan" :isRequired="true"  />
                                 </div>
                                 <div class="mb-3">
-                                    <label for="email" id="email" class="form-label" >Email <span style="color: red">*</span></label>
-                                    <input type="email" name="email" id="email" aria-describedby="email" class="form-control" required>
+                                    <x-forms.input label="Email karyawan" id="email" name="email" type="email" placeholder="Masukkan email karyawan" :isRequired="true"  />
                                 </div>
                                 <div class="mb-3">
-                                    <label for="password" id="password" class="form-label" >Password <span style="color: red">*</span></label>
-                                    <input type="password" name="password" id="password" aria-describedby="password" class="form-control" autocomplete="" required>
+                                    <x-forms.input label="Password" id="password" name="password" type="password" placeholder="Masukkan nama karyawan" :isRequired="true"  />
                                 </div>
                             </div>
                             <div class="modal-footer">

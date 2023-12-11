@@ -18,7 +18,7 @@
                 <div class="card-body">
                     <!--Title input-->
                     <div class="mb-3">
-                        <x-forms.input label="Judul" name="judul_ber" id="judul" :isRequired='true' type="text" placeholder="Masukkan judul disini"></x-forms.input>
+                        <x-forms.input label="Judul" name="judul" id="judul" :isRequired='true' type="text" placeholder="Masukkan judul disini"></x-forms.input>
                         <span id="counter" class="fs-6"></span>
                     </div>
                     
@@ -32,12 +32,12 @@
                 <div class="card-body">
                     <!--Description-->
                     <div class="mb-3">
-                        <x-forms.input label='Deksripsi' id="deskripsi" name="meta_description " type="text" :isRequired='true' placeholder="masukkan deskripsi"  />
+                        <x-forms.input label='Deksripsi' id="deskripsi" name="meta_description" type="text" :isRequired='true' placeholder="masukkan deskripsi"  />
                         <span class="fs-6 " id="counter1"></span>
                     </div>
                     <!--Keyword-->
                     <div class="mb-3">
-                        <x-forms.input label="Keyword" id="keyword" name="meta_keyword" type="text" placeholder="Masukkan meta keyword" :isRequired='true'></x-forms.input>
+                        <x-forms.input label="Keyword" id="keyword" name="meta_keywords" type="text" placeholder="Masukkan meta keyword" :isRequired='true'></x-forms.input>
                         <span class="fs-6" id="sisaKeyword"></span>
                     </div>
                     <!--image upload-->
@@ -48,7 +48,7 @@
                     </div>
                     <!--Kategori-->
                     <div class="mb-3">
-                        <x-forms.select :options="$kategoriOptions" id="kategori_id" name="kategori_id" label="Pilih Kategori" />
+                        <x-forms.select :options="$kategoriOptions" id="kategori_id" name="kategori_id" label="Pilih Kategori" selectedvalue="false" />
                     </div>
                   
                     <!--Slug select-->

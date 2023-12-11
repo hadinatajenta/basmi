@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Berita;
-use App\Models\BeritaBerbayar;
 use App\Models\Category;
 use illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
@@ -41,7 +40,6 @@ class BeritaController extends Controller
             'meta_description' => 'max:150',
             'meta_keywords' => 'max:150',
             'kategori_id'=>'required|not_in:0',
-            'jenis_berita_id'=>'required|not_in:0'
         ];
     
         if ($request->input('slugOption') === 'custom') {
@@ -60,7 +58,6 @@ class BeritaController extends Controller
         $berita->meta_description = $request->meta_description;
         $berita->meta_keywords = $request->meta_keywords;
         $berita->kategori_id = $request->kategori_id;
-        $berita->jenis_berita_id = $request->jenis_berita_id;
     
         // Menetapkan slug berdasarkan pilihan pengguna
         if ($request->input('slugOption') === 'custom' && $request->filled('slug')) {

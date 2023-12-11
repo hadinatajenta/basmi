@@ -32,12 +32,9 @@ class UserDetailController extends Controller
 
     public function update(Request $request ,$id):RedirectResponse
     {
-        if(!Auth::check()){
-            return redirect()->route('login')->with('error','Silahkan Login terlebih dahulu');
-        }
-
         $pengguna = User::findOrFail($id);
 
+        //Validasi
         $request->validate([
             'foto_profil' => 'image',
             'name' => 'string|required',
@@ -53,10 +50,8 @@ class UserDetailController extends Controller
             'role' => 'in:admin,author'
         ]);
 
-        
         $pengguna->name = $request->name;
         $pengguna->last_name = $request->last_name;
-
         $pengguna->email = $request->email;
 
         //Validasi role user admin yang saat ini login tidak dapat mengubah diri sendiri menjadi author
@@ -69,9 +64,10 @@ class UserDetailController extends Controller
         //Simpan perubahan pada model User
         $pengguna->save();
 
-
+        //User Detail
         $userDetail = UserDetail::where('user_id', $id)->first();
         if ($userDetail) {
+            //Handle Gambar
             if ($request->hasFile('foto_profil')) {
                 if ($userDetail->foto_profil && Storage::disk('public')->exists($userDetail->foto_profil)) {
                     Storage::disk('public')->delete($userDetail->foto_profil);
@@ -81,10 +77,12 @@ class UserDetailController extends Controller
                 $path = $file->storeAs('images', $filename, 'public');
                 $userDetail->foto_profil = $path;
             }
+            //Handle detail informasi pengguna
             $userDetail->nomor_telepon = $request->nomor_telepon;
             $userDetail->tanggal_lahir = $request->tanggal_lahir;
             $userDetail->nomor_karyawan = $request->nomor_karyawan;
             $userDetail->jenis_kelamin = $request->jenis_kelamin;
+            //Simpan perubahan userDetail
             $userDetail->save();
             return redirect()->back()->with('success','informasi pengguna berhasil di perbaharui');
         } else {

@@ -41,20 +41,21 @@
         </div>
     </div>
 
+    <!--Main content-->
     <div class="col-12">
         <div class="card mt-2  rounded-2 shadow-sm">
+            
+            <!--Header-->
             <div class="card-header">
                 <div class="d-flex align-items-center justify-content-between">
                     <p class="h5 m-0 fw-semibold">Postingan</p>
                     <a href="{{route('add-post')}}" class="btn btn-primary btn-sm">+ Postingan</a>
                 </div>
             </div>
+
+            <!--success message-->
             @if (session('success'))
-                <div class="col-12 mb-2">
-                    <div id="alert" class="alert alert-success" role="alert">
-                        {!!session('success')!!}
-                    </div>
-                </div>
+                <x-alert level="success" message='{{session('success')}}' />
             @endif
             <div class="card-body">
                 <div style="overflow-x: auto">
@@ -73,20 +74,32 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <!--Data berita -->
                             @foreach ($berita as $news)
                                 <tr>
                                     <td>{{$loop->index+=1}}</td>
-                                    
                                     <td><img src="{{url('storage/'.$news->gambar_utama)}}" alt="gambar" width="80px" height="auto"></td>
                                     <td>{{$news->judul ?? 'Tidak ada judul'}}</td>
                                     <td class="text-center text-capitalize 
-                                    @if ($news->jenis_berita_id == '')
-                                        text-secondary
-                                    @endif" >{{$news->beritaBerbayar->jenis_berita ?? 'null'}}</td>
+                                        @if ($news->jenis_berita_id == '')
+                                            text-secondary
+                                        @endif"
+                                    >
+                                        {{$news->beritaBerbayar->jenis_berita ?? 'null'}}
+                                    </td>
                                     <td class="text-center">{{$news->created_at->format('M d, Y')}}</td>
                                     <td class="text-center">{{$news->updated_at->format('M d, Y')}}</td>
                                     <td>
-                                        <span class="@if ($news->status === 'terbit') published @endif text-capitalize">{{$news->status}}</span>
+                                        <span class="
+                                        @if ($news->status === 'terbit') 
+                                            published 
+                                        @elseif ($news->status === 'draf') 
+                                            draft 
+                                        @elseif ($news->status === 'meunggu') 
+                                            waiting 
+                                        @endif 
+                                            text-capitalize
+                                        ">{{$news->status}}</span>
                                     </td>
                                     <td>
                                         <div class="form-check form-switch">
@@ -110,6 +123,8 @@
                         </tbody>
                     </table>
                 </div>
+
+                <!--pagination-->
                 @include('components.custom-pagination')
             </div>
         </div>
