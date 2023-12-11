@@ -49,12 +49,8 @@
                     <!--Kategori-->
                     <div class="mb-3">
                         <x-forms.select :options="$kategoriOptions" id="kategori_id" name="kategori_id" label="Pilih Kategori" />
-
                     </div>
-                    <!--Jenis berita-->
-                    <div class="mb-3">
-                        <x-forms.select :options="$jenisBeritaOptions" id="jenis_berita_id" name="jenis_berita_id" label="Jenis berita"/>
-                    </div>
+                  
                     <!--Slug select-->
                     <div class="mb-3">
                         <div class="form-check">

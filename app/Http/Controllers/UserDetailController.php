@@ -25,7 +25,9 @@ class UserDetailController extends Controller
     public function edit($id):View
     {
         $user = User::findOrFail($id);
-        return view('admin.manajemen_pengguna.user-detail',compact('user'));
+        $genderOptions = ['laki-laki' => 'Laki-laki', 'perempuan'=> 'Perempuan'];
+        $roleOptions =['admin'=>'admin', 'author'=> 'author'];
+        return view('admin.manajemen_pengguna.user-detail',compact('user','genderOptions','roleOptions'));
     }
 
     public function update(Request $request ,$id):RedirectResponse
@@ -38,31 +40,40 @@ class UserDetailController extends Controller
 
         $request->validate([
             'foto_profil' => 'image',
-            'name' => 'string|required|max:15',
-            'last_name' => 'nullable|max:20',
+            'name' => 'string|required',
+            'last_name' => 'nullable',
             'email'=> [
                 'required',
                 'email',
                 'max:40',
                 Rule::unique('users','email')->ignore($pengguna)
             ],
-            'nomor_telepon' => 'nullable|max:14',
-            'nomor_karyawan' => 'nullable|max:20',
+            'nomor_telepon' => 'nullable|min:11',
+            'nomor_karyawan' => 'nullable|min:16|max:20',
             'role' => 'in:admin,author'
         ]);
 
-        if($pengguna->id ===  Auth::user()->id)
+        
+        $pengguna->name = $request->name;
+        $pengguna->last_name = $request->last_name;
+
+        //Validasi email tidak boleh sama dengan email yang saat ini digunakan 
+        $pengguna->email = $request->email;
+        if($pengguna->email == $request->email)
+        {
+            return redirect()->back()->with('error','Email sedang digunakan, silahkan gunakan email lain.');
+        }
+
+        //Validasi role user admin yang saat ini login tidak dapat mengubah diri sendiri menjadi author
+        $pengguna->role = $request->role;
+        if($pengguna->id ===  Auth::user()->id && $request->role == 'author')
         {
             return redirect()->back()->with('error','Tidak dapat mengubah role diri sendiri menjadi author');
         }
 
-        $pengguna->name = $request->name;
-        $pengguna->last_name = $request->last_name;
-        $pengguna->email = $request->email;
-
-        $pengguna->role = $request->role;
-
+        //Simpan perubahan pada model User
         $pengguna->save();
+
         
         $userDetail = UserDetail::where('user_id', $id)->first();
         if ($userDetail) {
@@ -76,9 +87,11 @@ class UserDetailController extends Controller
                 $userDetail->foto_profil = $path;
             }
             $userDetail->nomor_telepon = $request->nomor_telepon;
+            $userDetail->tanggal_lahir = $request->tanggal_lahir;
             $userDetail->nomor_karyawan = $request->nomor_karyawan;
             $userDetail->jenis_kelamin = $request->jenis_kelamin;
             $userDetail->save();
+            
         } else {
             return redirect()->route('users.home')->with('error','pengguna tidak ditemukan');
         }

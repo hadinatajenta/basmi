@@ -2,7 +2,6 @@
 
 namespace App\View\Components\Forms;
 
-use App\Models\IklanBanner;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
@@ -17,14 +16,16 @@ class select extends Component
      public $name;
      public $label;
      public $options;
+     public $selectedvalue;
     public function __construct(
-        $id, $name, $label, $options
+        $id, $name, $label, $options, $selectedvalue
     )
     {
         $this->id = $id;
         $this->name = $name;
         $this->label = $label;
         $this->options = $options;
+        $this->selectedvalue = $selectedvalue;
     }
 
     /**
